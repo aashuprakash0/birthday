@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Only Nikki Can Enter 🐼🔐</title>
+  <title>Only ASIMO Ki President Can Enter 🔐</title>
 
   <style>
     *{margin:0;padding:0;box-sizing:border-box;font-family:Arial, sans-serif;}
+
     body{
       background: linear-gradient(135deg,#0f172a,#ec4899);
       min-height:100vh;
@@ -22,31 +23,34 @@
       flex-direction:column;
       justify-content:center;
       align-items:center;
-      height:100vh;
+      min-height:100vh;
       padding:18px;
     }
 
+    /* ✅ Big fonts for mobile */
     h1{
-      font-size:2.2rem;
-      margin-bottom:8px;
+      font-size:clamp(28px, 6vw, 46px);
+      margin-bottom:10px;
       text-shadow: 2px 2px 14px rgba(0,0,0,0.45);
+      line-height:1.15;
     }
 
     p{
-      font-size:1.05rem;
-      opacity:0.95;
+      font-size:clamp(16px, 4vw, 22px);
+      opacity:0.98;
       margin-bottom:16px;
-      line-height:1.4;
+      line-height:1.45;
+      max-width:720px;
     }
 
     .card{
       background: rgba(255,255,255,0.12);
       backdrop-filter: blur(10px);
       padding:22px;
-      border-radius:18px;
-      width:min(650px,95%);
-      box-shadow:0 12px 28px rgba(0,0,0,0.35);
-      margin-top:16px;
+      border-radius:20px;
+      width:min(720px,96%);
+      box-shadow:0 14px 32px rgba(0,0,0,0.38);
+      margin-top:10px;
       animation: pop 0.55s ease;
     }
 
@@ -56,16 +60,16 @@
     }
 
     .btn{
-      padding:12px 22px;
+      padding:14px 26px;
       border:none;
-      border-radius:30px;
+      border-radius:999px;
       background:#fff;
       color:#ec4899;
-      font-size:16px;
-      font-weight:800;
+      font-size:clamp(16px, 4vw, 20px);
+      font-weight:900;
       cursor:pointer;
-      transition:0.2s;
-      box-shadow:0 8px 18px rgba(0,0,0,0.25);
+      transition:0.18s;
+      box-shadow:0 10px 22px rgba(0,0,0,0.25);
     }
     .btn:hover{transform:scale(1.05);}
 
@@ -79,76 +83,78 @@
 
     .tag{
       display:inline-block;
-      padding:6px 12px;
+      padding:8px 14px;
       border-radius:999px;
-      font-size:0.9rem;
-      font-weight:700;
-      margin:8px 0 14px;
+      font-size:clamp(14px, 3.5vw, 16px);
+      font-weight:800;
+      margin:10px 0 14px;
       background: rgba(255,255,255,0.15);
-      border:1px solid rgba(255,255,255,0.2);
+      border:1px solid rgba(255,255,255,0.22);
     }
 
-    /* Input */
+    /* ✅ Input */
     .inputBox{
-      width:min(420px,95%);
+      width:100%;
       display:flex;
       gap:10px;
       justify-content:center;
+      align-items:center;
       flex-wrap:wrap;
-      margin-top:10px;
+      margin-top:12px;
     }
 
     input{
-      padding:12px 16px;
-      width:260px;
-      border-radius:14px;
+      padding:14px 16px;
+      width:min(320px, 90%);
+      border-radius:16px;
       border:none;
       outline:none;
-      font-size:15px;
+      font-size:clamp(16px, 4vw, 18px);
     }
 
     .error{
-      margin-top:10px;
+      margin-top:12px;
       color:#ffd1dc;
-      font-weight:700;
+      font-weight:900;
+      font-size:clamp(14px, 3.5vw, 18px);
       display:none;
     }
 
-    /* Music Button */
+    /* ✅ Music Button */
     .musicBtn{
       margin-top:14px;
-      padding:10px 16px;
+      padding:12px 18px;
       border-radius:999px;
-      border:1px solid rgba(255,255,255,0.25);
+      border:1px solid rgba(255,255,255,0.28);
       background:rgba(0,0,0,0.25);
       color:white;
-      font-weight:800;
+      font-weight:900;
+      font-size:clamp(14px, 3.8vw, 18px);
       cursor:pointer;
     }
 
-    /* Gift Box */
+    /* ✅ Gift Box */
     .giftWrap{
       display:flex;
       justify-content:center;
-      margin-top:10px;
+      margin-top:12px;
       margin-bottom:12px;
     }
     .gift{
-      width:120px;
-      height:120px;
-      border-radius:18px;
+      width:130px;
+      height:130px;
+      border-radius:22px;
       background:rgba(255,255,255,0.15);
       border:2px solid rgba(255,255,255,0.25);
-      position:relative;
       cursor:pointer;
       transition:0.25s;
       display:flex;
       justify-content:center;
       align-items:center;
-      font-size:50px;
+      font-size:62px;
       user-select:none;
     }
-    .gift:hover{transform:scale(1.06);}
+    .gift:hover{transform:scale(1.08);}
     .gift.shake{
       animation: shake 0.45s ease-in-out infinite;
     }
@@ -161,19 +167,20 @@
     }
     .gift.opened{
       animation:none;
-      transform:scale(1.08);
+      transform:scale(1.10);
       background:rgba(255,255,255,0.22);
     }
 
-    /* Slideshow */
+    /* ✅ Slideshow */
     .slideshow{
-      width:170px;
-      height:170px;
+      width:190px;
+      height:190px;
       border-radius:50%;
       overflow:hidden;
-      border:4px solid rgba(255,255,255,0.88);
-      margin:14px auto;
+      border:5px solid rgba(255,255,255,0.90);
+      margin:16px auto;
       position:relative;
+      box-shadow:0 10px 22px rgba(0,0,0,0.28);
     }
     .slideshow img{
       width:100%;
@@ -189,14 +196,14 @@
     }
 
     .msgBox{
-      margin-top:10px;
-      padding:14px;
-      border-radius:14px;
+      margin-top:12px;
+      padding:16px;
+      border-radius:16px;
       background:rgba(0,0,0,0.25);
       border:1px solid rgba(255,255,255,0.15);
-      font-size:1.05rem;
-      line-height:1.45;
-      min-height:95px;
+      font-size:clamp(16px, 4vw, 20px);
+      line-height:1.5;
+      min-height:110px;
     }
 
     .btnRow{
@@ -204,10 +211,10 @@
       gap:10px;
       flex-wrap:wrap;
       justify-content:center;
-      margin-top:12px;
+      margin-top:14px;
     }
 
-    /* Balloons */
+    /* ✅ Balloons */
     .balloon{
       position:absolute;
       bottom:-120px;
@@ -233,7 +240,7 @@
       100%{transform:translateY(-120vh);}
     }
 
-    /* Confetti */
+    /* ✅ Confetti */
     canvas{
       position:fixed;
       top:0;
@@ -246,8 +253,9 @@
 
     .footerNote{
       margin-top:14px;
-      font-size:0.9rem;
-      opacity:0.9;
+      font-size:clamp(14px, 3.5vw, 18px);
+      opacity:0.95;
+      font-weight:700;
     }
 
     .fadeIn{
@@ -266,15 +274,19 @@
 
   <!-- ✅ Background Music -->
   <audio id="bgMusic" loop>
-    <source src="./music.mp3" type="audio/mpeg">
+    <source src="music.mp3" type="audio/mpeg">
   </audio>
 
   <div class="container">
 
     <!-- 🔐 LOCK SCREEN -->
     <div class="card" id="lockScreen">
-      <h1>🔐 Only Nikki Can Enter 🐼</h1>
-      <p>Simran Dubey a.k.a <b>Nikki / Chotu Panda</b>…<br/>Password daal warna entry cancel 🤡</p>
+      <h1>🔐 Only <br/>ASIMO Ki President 😎</h1>
+
+      <p>
+        Entry sirf special person ke liye ✅<br/>
+        Password daalo warna entry cancel 🤡
+      </p>
 
       <div class="inputBox">
         <input id="passInput" type="password" placeholder="Enter Password..." />
@@ -284,49 +296,50 @@
       <div class="error" id="errorMsg">Wrong password 😭 Try again.</div>
 
       <div class="footerNote">
-        Hint: Your nickname 🐼 (lowercase)
+        Hint: <b>Where we meet first time</b> 😉
       </div>
     </div>
 
     <!-- 🎉 SURPRISE SCREEN -->
     <div class="card hidden" id="surpriseCard">
-      <h1>🎉 Happy Birthday Nikki 🎉</h1>
+      <h1>🎉 Happy Birthday <br/>ASIMO Ki President 🎉</h1>
+
       <div class="tag" id="modeTag">Mode: Gift Loading 🎁</div>
 
-      <!-- 🎁 Gift Animation -->
+      <!-- 🎁 Gift -->
       <div class="giftWrap">
         <div class="gift shake" id="giftBox" title="Open Gift">🎁</div>
       </div>
 
       <p id="giftText" class="hidden fadeIn">
-        Click the gift 🎁 to open your surprise, Chotu Panda 🐼
+        Click the gift 🎁 to open your surprise 😭🔥
       </p>
 
       <!-- ✅ Music Button -->
-      <button class="musicBtn" id="musicBtn">🎵 Play Music</button>
+      <button class="musicBtn" id="musicBtn">🎵 Music: ON (Auto)</button>
 
       <!-- ✅ Hidden content until gift opened -->
       <div id="giftContent" class="hidden">
         <div class="tag" id="modeTag2">Mode: Cinematic ✨</div>
 
         <div class="slideshow" id="slideshow">
-          <img src="./1.jpg" class="active" alt="Nikki Pic 1">
-          <img src="./2.jpeg" alt="Nikki Pic 2">
-          <img src="./3.jpeg" alt="Nikki Pic 3">
-          <img src="./4.jpeg" alt="Nikki Pic 4">
-          <img src="./5.jpeg" alt="Nikki Pic 5">
+          <img src="./1.jpg" class="active" alt="Pic 1">
+          <img src="./2.jpeg" alt="Pic 2">
+          <img src="./3.jpg" alt="Pic 3">
+          <img src="./4.jpg" alt="Pic 4">
+          <img src="./5.jpg" alt="Pic 5">
         </div>
 
         <div class="msgBox" id="msgBox"></div>
 
         <div class="btnRow">
-          <button class="btn" id="roastBtn">Roast Nikki 🔥</button>
-          <button class="btn btnDark" id="cuteBtn">Cute Panda 🐼💛</button>
-          <button class="btn" id="moreBtn">Another Message 🎲</button>
+          <button class="btn" id="roastBtn">Roast Mode 🔥</button>
+          <button class="btn btnDark" id="cuteBtn">Cute Mode 💛</button>
+          <button class="btn" id="moreBtn">Next 🎲</button>
         </div>
 
         <div class="footerNote">
-          PS: Chotu Panda, you’re my favorite chaos. 😭💙
+          PS: You’re still my favorite chaos 😭💙
         </div>
       </div>
     </div>
@@ -335,16 +348,16 @@
 
   <script>
     // ✅ PASSWORD
-    const CORRECT_PASSWORD = "nikki";
+    const CORRECT_PASSWORD = "asimo";
 
     // ✅ Wrong password roast popups
     const wrongPassRoasts = [
-      "Wrong password 😂 Nikki you trying hacking yourself?",
-      "Chotu Panda 🐼❌ password bhi bhool gayi? Serious case.",
-      "Access denied 😭 Go ask bestie for hint!",
-      "Wrong password 🤡 Aaj toh insult free me milega.",
-      "Try again Nikki 😂 Brain loading... 1%",
-      "Password galat 😌 tum cute ho, smart nahi."
+      "Wrong password 😂 President sahiba, focus please.",
+      "ASIMO Ki President ❌ password bhool gayi? Serious case.",
+      "Access denied 😭 Hint yaad karo!",
+      "Wrong password 🤡 Entry nahi milegi aise.",
+      "Try again 😂 Brain loading... 1%",
+      "Password galat 😌 Cute ho, hacker nahi."
     ];
 
     // Elements
@@ -371,25 +384,24 @@
 
     // Messages
     const cinematicMsgs = [
-      "🎬 Scene 1: Birthday Girl enters.<br/>Nikki arrives. Drama level: MAX. 😭✨",
-      "Simran Dubey...<br/>A.k.a Nikki...<br/>A.k.a Chotu Panda 🐼<br/>Main character energy is REAL. 🔥",
-      "Happy Birthday Nikki 🎉<br/>Today you’re allowed to be extra…<br/>like you’re not already 24x7. 🤡",
-      "Nikki 💛<br/>You’re my best friend… which means I’m stuck with you forever. ✅😭"
+      "🎬 Scene 1:<br/>ASIMO Ki President enters.<br/>Respect mode ON ✅😌",
+      "Happy Birthday President 😭🔥<br/>Aaj tumko extra hona allowed hai…<br/>waise tum daily hoti ho 🤡",
+      "Birthday loading… 99% ✅<br/>Surprise incoming 🎁✨",
+      "Bestie vibes 💙<br/>Tum special ho. Bas. ✅"
     ];
 
     const roastMsgs = [
-      "Happy Birthday Nikki 🎂😂<br/>Another year closer to becoming WhatsApp ‘Good Morning’ queen. 🌞📱",
-      "Chotu Panda 🐼🔥<br/>Cute outside, full villain inside. 😌💣",
-      "Your gift is my attention.<br/>Don’t act like you deserve it. 😌🎁",
-      "Simran Dubey 🤡<br/>You’re aging like milk… still I tolerate you. 🥛😂",
-      "One day you’ll be wise.<br/>Today is NOT that day. ✅😭"
+      "Happy Birthday 😂<br/>President ban gayi, par maturity abhi bhi pending hai. 📦🤡",
+      "ASIMO Ki President 🔥<br/>Tum cute ho… par dangerous bhi 😭💣",
+      "Tumhara gift: meri attention 😌🎁<br/>Zyada demand mat karna.",
+      "Aaj birthday hai isliye chup hu…<br/>warna roast unlimited hota 😭🔥"
     ];
 
     const cuteMsgs = [
-      "Happy Birthday Nikki 💛<br/>You make life less boring and 100x more chaotic 😭✨",
-      "Chotu Panda 🐼💙<br/>No matter what happens, I’ve got you. Always. 🤝",
-      "Simran Dubey 🌸<br/>You deserve the best today… even if you act like a villain sometimes. 😌😂",
-      "Bestie 💙<br/>Thanks for always being there. You matter. A LOT. 🎉"
+      "Happy Birthday 💛<br/>You make everything better. Seriously. ✅✨",
+      "President sahiba 💙<br/>No matter what, I’ve got you. Always. 🤝",
+      "You deserve the best today 🎉<br/>And yes… you are special 😌",
+      "Stay happy, stay crazy 😭💛<br/>Bestie forever ✅"
     ];
 
     let currentMode = "cinematic";
@@ -401,7 +413,7 @@
 
     // ✅ Typing effect
     let typingTimer;
-    function typeText(htmlText, speed=25){
+    function typeText(htmlText, speed=24){
       clearInterval(typingTimer);
       msgBox.innerHTML = "";
 
@@ -424,15 +436,15 @@
 
       if(mode === "roast"){
         modeTag2.textContent = "Mode: Roast 🔥";
-        typeText(pick(roastMsgs), 18);
+        typeText(pick(roastMsgs), 16);
       }
       else if(mode === "cute"){
-        modeTag2.textContent = "Mode: Cute 🐼💛";
-        typeText(pick(cuteMsgs), 22);
+        modeTag2.textContent = "Mode: Cute 💛";
+        typeText(pick(cuteMsgs), 20);
       }
       else {
         modeTag2.textContent = "Mode: Cinematic ✨";
-        typeText(pick(cinematicMsgs), 28);
+        typeText(pick(cinematicMsgs), 26);
       }
     }
 
@@ -440,8 +452,8 @@
     cuteBtn.addEventListener("click", ()=> setMode("cute"));
     moreBtn.addEventListener("click", ()=> setMode(currentMode));
 
-    // ✅ Unlock logic
-    function unlock(){
+    // ✅ Unlock (Music auto plays here)
+    async function unlock(){
       const entered = passInput.value.trim().toLowerCase();
 
       if(entered === CORRECT_PASSWORD){
@@ -451,8 +463,17 @@
 
         createBalloons(22);
         startConfetti();
-
         giftText.classList.remove("hidden");
+
+        // ✅ AUTO PLAY MUSIC (works because user clicked Unlock)
+        try{
+          await bgMusic.play();
+          musicBtn.textContent = "⏸ Music: ON (Auto)";
+        }catch(err){
+          // If still blocked, user can tap music button
+          musicBtn.textContent = "🎵 Tap to Play Music";
+        }
+
       } else {
         errorMsg.style.display = "block";
         alert(pick(wrongPassRoasts));
@@ -484,18 +505,18 @@
       setMode("cinematic");
     });
 
-    // ✅ Music toggle
-    let isPlaying = false;
+    // ✅ Music Toggle (manual control)
+    let isPlaying = true;
     musicBtn.addEventListener("click", async ()=>{
       try{
         if(!isPlaying){
           await bgMusic.play();
           isPlaying = true;
-          musicBtn.textContent = "⏸ Pause Music";
+          musicBtn.textContent = "⏸ Music: ON";
         }else{
           bgMusic.pause();
           isPlaying = false;
-          musicBtn.textContent = "🎵 Play Music";
+          musicBtn.textContent = "🎵 Music: OFF";
         }
       }catch(err){
         alert("Music didn't start 😭\nMake sure music.mp3 is in the same folder.");
@@ -571,7 +592,6 @@
       const slides = document.querySelectorAll("#slideshow img");
       let idx = 0;
 
-      // Remove missing images
       slides.forEach(img=>{
         img.onerror = ()=> img.remove();
       });
