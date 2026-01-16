@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Only Nikki Can Enter 🐼🔐</title>
+
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;font-family:Arial, sans-serif;}
+    body{
+      background: linear-gradient(135deg,#0f172a,#ec4899);
+      min-height:100vh;
+      overflow:hidden;
+      color:white;
+      text-align:center;
+    }
+
+    .container{
+      position:relative;
+      z-index:10;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      height:100vh;
+      padding:18px;
+    }
+
+    h1{
+      font-size:2.2rem;
+      margin-bottom:8px;
+      text-shadow: 2px 2px 14px rgba(0,0,0,0.45);
+    }
+
+    p{
+      font-size:1.05rem;
+      opacity:0.95;
+      margin-bottom:16px;
+      line-height:1.4;
+    }
+
+    .card{
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(10px);
+      padding:22px;
+      border-radius:18px;
+      width:min(650px,95%);
+      box-shadow:0 12px 28px rgba(0,0,0,0.35);
+      margin-top:16px;
+      animation: pop 0.55s ease;
+    }
+
+    @keyframes pop{
+      from{transform:scale(0.88);opacity:0;}
+      to{transform:scale(1);opacity:1;}
+    }
+
+    .btn{
+      padding:12px 22px;
+      border:none;
+      border-radius:30px;
+      background:#fff;
+      color:#ec4899;
+      font-size:16px;
+      font-weight:800;
+      cursor:pointer;
+      transition:0.2s;
+      box-shadow:0 8px 18px rgba(0,0,0,0.25);
+    }
+    .btn:hover{transform:scale(1.05);}
+
+    .btnDark{
+      background:#0f172a;
+      color:#fff;
+      border:2px solid rgba(255,255,255,0.25);
+    }
+
+    .hidden{display:none;}
+
+    .tag{
+      display:inline-block;
+      padding:6px 12px;
+      border-radius:999px;
+      font-size:0.9rem;
+      font-weight:700;
+      margin:8px 0 14px;
+      background: rgba(255,255,255,0.15);
+      border:1px solid rgba(255,255,255,0.2);
+    }
+
+    /* Input */
+    .inputBox{
+      width:min(420px,95%);
+      display:flex;
+      gap:10px;
+      justify-content:center;
+      flex-wrap:wrap;
+      margin-top:10px;
+    }
+
+    input{
+      padding:12px 16px;
+      width:260px;
+      border-radius:14px;
+      border:none;
+      outline:none;
+      font-size:15px;
+    }
+
+    .error{
+      margin-top:10px;
+      color:#ffd1dc;
+      font-weight:700;
+      display:none;
+    }
+
+    /* Music Button */
+    .musicBtn{
+      margin-top:14px;
+      padding:10px 16px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,0.25);
+      background:rgba(0,0,0,0.25);
+      color:white;
+      font-weight:800;
+      cursor:pointer;
+    }
+
+    /* Gift Box */
+    .giftWrap{
+      display:flex;
+      justify-content:center;
+      margin-top:10px;
+      margin-bottom:12px;
+    }
+    .gift{
+      width:120px;
+      height:120px;
+      border-radius:18px;
+      background:rgba(255,255,255,0.15);
+      border:2px solid rgba(255,255,255,0.25);
+      position:relative;
+      cursor:pointer;
+      transition:0.25s;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      font-size:50px;
+      user-select:none;
+    }
+    .gift:hover{transform:scale(1.06);}
+    .gift.shake{
+      animation: shake 0.45s ease-in-out infinite;
+    }
+    @keyframes shake{
+      0%{transform:rotate(0deg) scale(1);}
+      25%{transform:rotate(4deg) scale(1.02);}
+      50%{transform:rotate(-4deg) scale(1.02);}
+      75%{transform:rotate(3deg) scale(1.02);}
+      100%{transform:rotate(0deg) scale(1);}
+    }
+    .gift.opened{
+      animation:none;
+      transform:scale(1.08);
+      background:rgba(255,255,255,0.22);
+    }
+
+    /* Slideshow */
+    .slideshow{
+      width:170px;
+      height:170px;
+      border-radius:50%;
+      overflow:hidden;
+      border:4px solid rgba(255,255,255,0.88);
+      margin:14px auto;
+      position:relative;
+    }
+    .slideshow img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      position:absolute;
+      top:0;left:0;
+      opacity:0;
+      transition:opacity 0.9s ease;
+    }
+    .slideshow img.active{
+      opacity:1;
+    }
+
+    .msgBox{
+      margin-top:10px;
+      padding:14px;
+      border-radius:14px;
+      background:rgba(0,0,0,0.25);
+      border:1px solid rgba(255,255,255,0.15);
+      font-size:1.05rem;
+      line-height:1.45;
+      min-height:95px;
+    }
+
+    .btnRow{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:center;
+      margin-top:12px;
+    }
+
+    /* Balloons */
+    .balloon{
+      position:absolute;
+      bottom:-120px;
+      width:60px;
+      height:80px;
+      border-radius:50%;
+      animation: floatUp 8s linear infinite;
+      opacity:0.9;
+      z-index:1;
+    }
+    .balloon::after{
+      content:"";
+      position:absolute;
+      left:50%;
+      top:78px;
+      width:2px;
+      height:60px;
+      background:rgba(255,255,255,0.7);
+      transform:translateX(-50%);
+    }
+    @keyframes floatUp{
+      0%{transform:translateY(0);}
+      100%{transform:translateY(-120vh);}
+    }
+
+    /* Confetti */
+    canvas{
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      pointer-events:none;
+      z-index:5;
+    }
+
+    .footerNote{
+      margin-top:14px;
+      font-size:0.9rem;
+      opacity:0.9;
+    }
+
+    .fadeIn{
+      animation: fadeIn 0.6s ease forwards;
+    }
+    @keyframes fadeIn{
+      from{opacity:0;transform:translateY(10px);}
+      to{opacity:1;transform:translateY(0);}
+    }
+  </style>
+</head>
+
+<body>
+
+  <canvas id="confetti"></canvas>
+
+  <!-- ✅ Background Music -->
+  <audio id="bgMusic" loop>
+    <source src="./music.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="container">
+
+    <!-- 🔐 LOCK SCREEN -->
+    <div class="card" id="lockScreen">
+      <h1>🔐 Only Nikki Can Enter 🐼</h1>
+      <p>Simran Dubey a.k.a <b>Nikki / Chotu Panda</b>…<br/>Password daal warna entry cancel 🤡</p>
+
+      <div class="inputBox">
+        <input id="passInput" type="password" placeholder="Enter Password..." />
+        <button class="btn" id="unlockBtn">Unlock ✅</button>
+      </div>
+
+      <div class="error" id="errorMsg">Wrong password 😭 Try again.</div>
+
+      <div class="footerNote">
+        Hint: Your nickname 🐼 (lowercase)
+      </div>
+    </div>
+
+    <!-- 🎉 SURPRISE SCREEN -->
+    <div class="card hidden" id="surpriseCard">
+      <h1>🎉 Happy Birthday Nikki 🎉</h1>
+      <div class="tag" id="modeTag">Mode: Gift Loading 🎁</div>
+
+      <!-- 🎁 Gift Animation -->
+      <div class="giftWrap">
+        <div class="gift shake" id="giftBox" title="Open Gift">🎁</div>
+      </div>
+
+      <p id="giftText" class="hidden fadeIn">
+        Click the gift 🎁 to open your surprise, Chotu Panda 🐼
+      </p>
+
+      <!-- ✅ Music Button -->
+      <button class="musicBtn" id="musicBtn">🎵 Play Music</button>
+
+      <!-- ✅ Hidden content until gift opened -->
+      <div id="giftContent" class="hidden">
+        <div class="tag" id="modeTag2">Mode: Cinematic ✨</div>
+
+        <div class="slideshow" id="slideshow">
+          <img src="./1.jpg" class="active" alt="Nikki Pic 1">
+          <img src="./2.jpeg" alt="Nikki Pic 2">
+          <img src="./3.jpeg" alt="Nikki Pic 3">
+          <img src="./4.jpeg" alt="Nikki Pic 4">
+          <img src="./5.jpeg" alt="Nikki Pic 5">
+        </div>
+
+        <div class="msgBox" id="msgBox"></div>
+
+        <div class="btnRow">
+          <button class="btn" id="roastBtn">Roast Nikki 🔥</button>
+          <button class="btn btnDark" id="cuteBtn">Cute Panda 🐼💛</button>
+          <button class="btn" id="moreBtn">Another Message 🎲</button>
+        </div>
+
+        <div class="footerNote">
+          PS: Chotu Panda, you’re my favorite chaos. 😭💙
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // ✅ PASSWORD
+    const CORRECT_PASSWORD = "nikki";
+
+    // ✅ Wrong password roast popups
+    const wrongPassRoasts = [
+      "Wrong password 😂 Nikki you trying hacking yourself?",
+      "Chotu Panda 🐼❌ password bhi bhool gayi? Serious case.",
+      "Access denied 😭 Go ask bestie for hint!",
+      "Wrong password 🤡 Aaj toh insult free me milega.",
+      "Try again Nikki 😂 Brain loading... 1%",
+      "Password galat 😌 tum cute ho, smart nahi."
+    ];
+
+    // Elements
+    const lockScreen = document.getElementById("lockScreen");
+    const surpriseCard = document.getElementById("surpriseCard");
+    const unlockBtn = document.getElementById("unlockBtn");
+    const passInput = document.getElementById("passInput");
+    const errorMsg = document.getElementById("errorMsg");
+
+    const giftBox = document.getElementById("giftBox");
+    const giftContent = document.getElementById("giftContent");
+    const giftText = document.getElementById("giftText");
+
+    const bgMusic = document.getElementById("bgMusic");
+    const musicBtn = document.getElementById("musicBtn");
+
+    const msgBox = document.getElementById("msgBox");
+    const modeTag = document.getElementById("modeTag");
+    const modeTag2 = document.getElementById("modeTag2");
+
+    const roastBtn = document.getElementById("roastBtn");
+    const cuteBtn = document.getElementById("cuteBtn");
+    const moreBtn = document.getElementById("moreBtn");
+
+    // Messages
+    const cinematicMsgs = [
+      "🎬 Scene 1: Birthday Girl enters.<br/>Nikki arrives. Drama level: MAX. 😭✨",
+      "Simran Dubey...<br/>A.k.a Nikki...<br/>A.k.a Chotu Panda 🐼<br/>Main character energy is REAL. 🔥",
+      "Happy Birthday Nikki 🎉<br/>Today you’re allowed to be extra…<br/>like you’re not already 24x7. 🤡",
+      "Nikki 💛<br/>You’re my best friend… which means I’m stuck with you forever. ✅😭"
+    ];
+
+    const roastMsgs = [
+      "Happy Birthday Nikki 🎂😂<br/>Another year closer to becoming WhatsApp ‘Good Morning’ queen. 🌞📱",
+      "Chotu Panda 🐼🔥<br/>Cute outside, full villain inside. 😌💣",
+      "Your gift is my attention.<br/>Don’t act like you deserve it. 😌🎁",
+      "Simran Dubey 🤡<br/>You’re aging like milk… still I tolerate you. 🥛😂",
+      "One day you’ll be wise.<br/>Today is NOT that day. ✅😭"
+    ];
+
+    const cuteMsgs = [
+      "Happy Birthday Nikki 💛<br/>You make life less boring and 100x more chaotic 😭✨",
+      "Chotu Panda 🐼💙<br/>No matter what happens, I’ve got you. Always. 🤝",
+      "Simran Dubey 🌸<br/>You deserve the best today… even if you act like a villain sometimes. 😌😂",
+      "Bestie 💙<br/>Thanks for always being there. You matter. A LOT. 🎉"
+    ];
+
+    let currentMode = "cinematic";
+    let giftOpened = false;
+
+    function pick(arr){
+      return arr[Math.floor(Math.random()*arr.length)];
+    }
+
+    // ✅ Typing effect
+    let typingTimer;
+    function typeText(htmlText, speed=25){
+      clearInterval(typingTimer);
+      msgBox.innerHTML = "";
+
+      const tempDiv = document.createElement("div");
+      tempDiv.innerHTML = htmlText;
+      const plainText = tempDiv.innerText;
+
+      let i = 0;
+      typingTimer = setInterval(() => {
+        msgBox.textContent = plainText.slice(0, i);
+        i++;
+        if(i > plainText.length){
+          clearInterval(typingTimer);
+        }
+      }, speed);
+    }
+
+    function setMode(mode){
+      currentMode = mode;
+
+      if(mode === "roast"){
+        modeTag2.textContent = "Mode: Roast 🔥";
+        typeText(pick(roastMsgs), 18);
+      }
+      else if(mode === "cute"){
+        modeTag2.textContent = "Mode: Cute 🐼💛";
+        typeText(pick(cuteMsgs), 22);
+      }
+      else {
+        modeTag2.textContent = "Mode: Cinematic ✨";
+        typeText(pick(cinematicMsgs), 28);
+      }
+    }
+
+    roastBtn.addEventListener("click", ()=> setMode("roast"));
+    cuteBtn.addEventListener("click", ()=> setMode("cute"));
+    moreBtn.addEventListener("click", ()=> setMode(currentMode));
+
+    // ✅ Unlock logic
+    function unlock(){
+      const entered = passInput.value.trim().toLowerCase();
+
+      if(entered === CORRECT_PASSWORD){
+        errorMsg.style.display = "none";
+        lockScreen.classList.add("hidden");
+        surpriseCard.classList.remove("hidden");
+
+        createBalloons(22);
+        startConfetti();
+
+        giftText.classList.remove("hidden");
+      } else {
+        errorMsg.style.display = "block";
+        alert(pick(wrongPassRoasts));
+        passInput.value = "";
+        passInput.focus();
+      }
+    }
+
+    unlockBtn.addEventListener("click", unlock);
+    passInput.addEventListener("keydown", (e)=>{
+      if(e.key === "Enter") unlock();
+    });
+
+    // ✅ Gift open animation
+    giftBox.addEventListener("click", ()=>{
+      if(giftOpened) return;
+      giftOpened = true;
+
+      giftBox.classList.remove("shake");
+      giftBox.classList.add("opened");
+      giftBox.textContent = "🎊";
+
+      modeTag.textContent = "Mode: Surprise Unlocked ✅🎉";
+
+      giftContent.classList.remove("hidden");
+      giftContent.classList.add("fadeIn");
+
+      startSlideshow();
+      setMode("cinematic");
+    });
+
+    // ✅ Music toggle
+    let isPlaying = false;
+    musicBtn.addEventListener("click", async ()=>{
+      try{
+        if(!isPlaying){
+          await bgMusic.play();
+          isPlaying = true;
+          musicBtn.textContent = "⏸ Pause Music";
+        }else{
+          bgMusic.pause();
+          isPlaying = false;
+          musicBtn.textContent = "🎵 Play Music";
+        }
+      }catch(err){
+        alert("Music didn't start 😭\nMake sure music.mp3 is in the same folder.");
+      }
+    });
+
+    // ✅ Balloons
+    function createBalloons(count=22){
+      for(let i=0;i<count;i++){
+        const b = document.createElement("div");
+        b.className = "balloon";
+
+        const colors = ["#ff3b3b","#3b82ff","#22c55e","#f97316","#a855f7","#facc15","#14b8a6","#ec4899"];
+        b.style.background = colors[Math.floor(Math.random()*colors.length)];
+
+        b.style.left = Math.random()*100 + "vw";
+        b.style.animationDuration = (5 + Math.random()*6) + "s";
+        b.style.transform = `scale(${0.7 + Math.random()*0.9})`;
+
+        document.body.appendChild(b);
+      }
+    }
+
+    // ✅ Confetti
+    const canvas = document.getElementById("confetti");
+    const ctx = canvas.getContext("2d");
+
+    function resizeCanvas(){
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    let confettiPieces = [];
+    function makeConfetti(){
+      confettiPieces = [];
+      for(let i=0;i<240;i++){
+        confettiPieces.push({
+          x: Math.random()*canvas.width,
+          y: Math.random()*canvas.height - canvas.height,
+          size: 4 + Math.random()*7,
+          speed: 2 + Math.random()*5,
+          angle: Math.random()*360
+        });
+      }
+    }
+
+    function drawConfetti(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      confettiPieces.forEach(p=>{
+        ctx.save();
+        ctx.translate(p.x,p.y);
+        ctx.rotate(p.angle);
+        ctx.fillStyle = `hsl(${Math.random()*360},100%,60%)`;
+        ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size);
+        ctx.restore();
+
+        p.y += p.speed;
+        p.angle += 0.1;
+        if(p.y > canvas.height) p.y = -20;
+      });
+      requestAnimationFrame(drawConfetti);
+    }
+
+    function startConfetti(){
+      makeConfetti();
+      drawConfetti();
+    }
+
+    // ✅ Slideshow
+    function startSlideshow(){
+      const slides = document.querySelectorAll("#slideshow img");
+      let idx = 0;
+
+      // Remove missing images
+      slides.forEach(img=>{
+        img.onerror = ()=> img.remove();
+      });
+
+      setInterval(()=>{
+        const currentSlides = document.querySelectorAll("#slideshow img");
+        if(currentSlides.length <= 1) return;
+
+        currentSlides.forEach(s => s.classList.remove("active"));
+        idx = (idx + 1) % currentSlides.length;
+        currentSlides[idx].classList.add("active");
+      }, 2000);
+    }
+  </script>
+
+</body>
+</html>
