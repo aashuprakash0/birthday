@@ -27,7 +27,6 @@
       padding:18px;
     }
 
-    /* ✅ Big fonts for mobile */
     h1{
       font-size:clamp(28px, 6vw, 46px);
       margin-bottom:10px;
@@ -92,7 +91,7 @@
       border:1px solid rgba(255,255,255,0.22);
     }
 
-    /* ✅ Input */
+    /* Input */
     .inputBox{
       width:100%;
       display:flex;
@@ -112,6 +111,17 @@
       font-size:clamp(16px, 4vw, 18px);
     }
 
+    input:disabled{
+      opacity:0.65;
+      cursor:not-allowed;
+    }
+
+    button:disabled{
+      opacity:0.65;
+      cursor:not-allowed;
+      transform:none !important;
+    }
+
     .error{
       margin-top:12px;
       color:#ffd1dc;
@@ -120,7 +130,7 @@
       display:none;
     }
 
-    /* ✅ Music Button */
+    /* Music Button */
     .musicBtn{
       margin-top:14px;
       padding:12px 18px;
@@ -133,7 +143,7 @@
       cursor:pointer;
     }
 
-    /* ✅ Gift Box */
+    /* Gift Box */
     .giftWrap{
       display:flex;
       justify-content:center;
@@ -171,7 +181,7 @@
       background:rgba(255,255,255,0.22);
     }
 
-    /* ✅ Slideshow */
+    /* Slideshow */
     .slideshow{
       width:190px;
       height:190px;
@@ -214,7 +224,7 @@
       margin-top:14px;
     }
 
-    /* ✅ Balloons */
+    /* Balloons */
     .balloon{
       position:absolute;
       bottom:-120px;
@@ -240,7 +250,7 @@
       100%{transform:translateY(-120vh);}
     }
 
-    /* ✅ Confetti */
+    /* Confetti */
     canvas{
       position:fixed;
       top:0;
@@ -285,12 +295,15 @@
 
       <p>
         Entry sirf special person ke liye ✅<br/>
-        Password daalo warna entry cancel 🤡
+        Surprise unlock hoga exact time pe 😌
       </p>
 
+      <!-- ✅ Countdown -->
+      <div class="tag" id="countdownBox">⏳ Countdown Loading...</div>
+
       <div class="inputBox">
-        <input id="passInput" type="password" placeholder="Enter Password..." />
-        <button class="btn" id="unlockBtn">Unlock ✅</button>
+        <input id="passInput" type="password" placeholder="Locked until time 😌" disabled />
+        <button class="btn" id="unlockBtn" disabled>Unlock ✅</button>
       </div>
 
       <div class="error" id="errorMsg">Wrong password 😭 Try again.</div>
@@ -323,11 +336,11 @@
         <div class="tag" id="modeTag2">Mode: Cinematic ✨</div>
 
         <div class="slideshow" id="slideshow">
-          <img src="./1.jpg" class="active" alt="Pic 1">
-          <img src="./2.jpeg" alt="Pic 2">
-          <img src="./3.jpeg" alt="Pic 3">
-          <img src="./4.jpeg" alt="Pic 4">
-          <img src="./5.jpeg" alt="Pic 5">
+          <img src="1.jpg" class="active" alt="Pic 1">
+          <img src="2.jpg" alt="Pic 2">
+          <img src="3.jpg" alt="Pic 3">
+          <img src="4.jpg" alt="Pic 4">
+          <img src="5.jpg" alt="Pic 5">
         </div>
 
         <div class="msgBox" id="msgBox"></div>
@@ -347,6 +360,10 @@
   </div>
 
   <script>
+    // ✅ Surprise unlock time (17 Jan 2026, 12:00 AM)
+    // NOTE: This uses the device's local time.
+    const SURPRISE_TIME = new Date("2026-01-17T00:00:00").getTime();
+
     // ✅ PASSWORD
     const CORRECT_PASSWORD = "asimo";
 
@@ -361,6 +378,8 @@
     ];
 
     // Elements
+    const countdownBox = document.getElementById("countdownBox");
+
     const lockScreen = document.getElementById("lockScreen");
     const surpriseCard = document.getElementById("surpriseCard");
     const unlockBtn = document.getElementById("unlockBtn");
@@ -381,6 +400,32 @@
     const roastBtn = document.getElementById("roastBtn");
     const cuteBtn = document.getElementById("cuteBtn");
     const moreBtn = document.getElementById("moreBtn");
+
+    // ✅ Countdown Lock System
+    function startCountdownLock(){
+      const timer = setInterval(() => {
+        const now = Date.now();
+        const diff = SURPRISE_TIME - now;
+
+        if(diff <= 0){
+          clearInterval(timer);
+          countdownBox.innerHTML = "✅ Surprise is LIVE! Enter password 🔓";
+          passInput.disabled = false;
+          unlockBtn.disabled = false;
+          passInput.placeholder = "Enter Password...";
+          return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / (1000 * 60)) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+
+        countdownBox.innerHTML =
+          `⏳ Unlocks in: <b>${days}d ${hours}h ${minutes}m ${seconds}s</b>`;
+      }, 1000);
+    }
+    startCountdownLock();
 
     // Messages
     const cinematicMsgs = [
@@ -442,7 +487,7 @@
         modeTag2.textContent = "Mode: Cute 💛";
         typeText(pick(cuteMsgs), 20);
       }
-      else {
+      else{
         modeTag2.textContent = "Mode: Cinematic ✨";
         typeText(pick(cinematicMsgs), 26);
       }
@@ -454,6 +499,12 @@
 
     // ✅ Unlock (Music auto plays here)
     async function unlock(){
+      // Hard block if time not reached (extra safety)
+      if(Date.now() < SURPRISE_TIME){
+        alert("Not yet 😌 Wait for the countdown to finish ⏳");
+        return;
+      }
+
       const entered = passInput.value.trim().toLowerCase();
 
       if(entered === CORRECT_PASSWORD){
@@ -470,7 +521,6 @@
           await bgMusic.play();
           musicBtn.textContent = "⏸ Music: ON (Auto)";
         }catch(err){
-          // If still blocked, user can tap music button
           musicBtn.textContent = "🎵 Tap to Play Music";
         }
 
@@ -505,7 +555,7 @@
       setMode("cinematic");
     });
 
-    // ✅ Music Toggle (manual control)
+    // ✅ Music Toggle (manual)
     let isPlaying = true;
     musicBtn.addEventListener("click", async ()=>{
       try{
@@ -609,5 +659,3 @@
 
 </body>
 </html>
-
-
